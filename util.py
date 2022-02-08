@@ -1,5 +1,4 @@
 
-from email.mime import base
 import logging
 from argparse import ArgumentParser
 
