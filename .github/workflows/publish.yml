@@ -44,13 +44,22 @@ jobs:
       - name: Get current time
         uses: josStorer/get-current-time@v2
         id: current-time
+        with:
+          format: YMMDDHHmm
+
+      - name: Push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          custom_tag: "${{ steps.current-time.outputs.formattedTime }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           target_commitish: main
-          tag_name: "${{ steps.current-time.outputs.time }}"
-          body: "${{ steps.current-time.outputs.time }}"
+          tag_name: "${{ steps.current-time.outputs.formattedTime }}"
+          body: "${{ steps.current-time.outputs.formattedTime }}"
           files: |
             ./additives.json
         env:
