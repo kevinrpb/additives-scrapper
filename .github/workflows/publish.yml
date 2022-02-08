@@ -39,7 +39,7 @@ jobs:
 
       - name: Run scrapper
         run: |
-          pipenv run python main.py 5 500 -l warning
+          pipenv run python main.py 5 500 -l error
 
       - name: Get current time
         uses: josStorer/get-current-time@v2
