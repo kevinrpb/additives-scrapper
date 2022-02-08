@@ -45,7 +45,11 @@ jobs:
         uses: josStorer/get-current-time@v2
         id: current-time
         with:
-          format: YMMDDHHmm
+          format: Y-MM-DDTHH:mm:ssZ
+
+      - name: Create info file
+        run: |
+          echo '{ "updated": "${{ steps.current-time.outputs.formattedTime }}" }' > info.json
 
       - name: Push tag
         id: tag_version
@@ -61,6 +65,7 @@ jobs:
           tag_name: "${{ steps.current-time.outputs.formattedTime }}"
           body: "${{ steps.current-time.outputs.formattedTime }}"
           files: |
+            ./info.json
             ./additives.json
         env:
           GITHUB_REPOSITORY: kevinrpb/additives-scrapper
