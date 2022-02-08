@@ -45,11 +45,11 @@ jobs:
         uses: josStorer/get-current-time@v2
         id: current-time
         with:
-          format: Y-MM-DDTHH:mm:ssZ
+          format: Y.MM.DD.HH.mm
 
       - name: Create info file
         run: |
-          echo '{ "updated": "${{ steps.current-time.outputs.formattedTime }}" }' > info.json
+          echo '{ "updated": "${{ steps.current-time.outputs.time }}" }' > info.json
 
       - name: Push tag
         id: tag_version
@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "${{ steps.current-time.outputs.formattedTime }}"
-          body: "${{ steps.current-time.outputs.formattedTime }}"
+          body: "${{ steps.current-time.outputs.time }}"
           files: |
             ./info.json
             ./additives.json
