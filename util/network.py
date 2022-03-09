@@ -3,7 +3,7 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 
-from util import cleanup_text
+from .hacks import cleanup_text
 
 logger = logging.getLogger('additives-scrapper')
 

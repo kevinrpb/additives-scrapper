@@ -3646,8 +3646,8 @@
           "Infant formulae as defined by Directive 2006/141/EC (13.1.1)"
         ],
         "exceptions": [
-          "ML  = 100000 mg/kg , \u00a0 in Vitamin D preparation",
-          "ML  = 1 mg/l , maximum carry-over in final food."
+          "ML  = 1 mg/l , maximum carry-over in final food.",
+          "ML  = 100000 mg/kg , \u00a0 in Vitamin D preparation"
         ]
       },
       {
@@ -3655,8 +3655,8 @@
           "Follow-on formulae as defined by Directive 2006/141/EC (13.1.2)"
         ],
         "exceptions": [
-          "ML  = 100000 mg/kg , In Vitamin D preparation",
-          "ML  = 1 mg/l , maximum carry - over in final food"
+          "ML  = 1 mg/l , maximum carry - over in final food",
+          "ML  = 100000 mg/kg , In Vitamin D preparation"
         ]
       }
     ]
