@@ -1,18 +1,10 @@
-import logging
+import os
 from argparse import ArgumentParser
 
-logger = logging.getLogger('additives-scrapper')
+from .log import get_level, setup_logger
 
 def parse_args():
-  def get_level(level_str: str) -> int:
-    m = {
-      'debug': logging.DEBUG,
-      'info': logging.INFO,
-      'warning': logging.WARNING,
-      'error': logging.ERROR
-    }
-
-    return m[level_str]
+  logger = setup_logger(__name__)
 
   parser = ArgumentParser('additives-scrapper')
 
@@ -29,8 +21,12 @@ def parse_args():
                       choices=['debug', 'info', 'warning', 'error'],
                       default='warning')
 
-  logger.debug('Parsing arguments')
   args = parser.parse_args()
+
+  os.environ['LOG_LEVEL'] = f'{args.log_level}'
   args.log_level = get_level(args.log_level)
+
+  logger = setup_logger(__name__)
+  logger.debug('Parsed arguments')
 
   return args

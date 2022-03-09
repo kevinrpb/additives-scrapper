@@ -1,9 +1,6 @@
 
-import logging
-
 from bs4 import BeautifulSoup, Tag
-
-from util import get_page
+from util import get_page, setup_logger
 
 
 class EuropaScrapper:
@@ -18,7 +15,7 @@ class EuropaScrapper:
   # *
 
   def __init__(self):
-    pass
+    self.logger = setup_logger(__name__)
 
   # *
   # * MARK: HTML Parsing -
@@ -110,8 +107,7 @@ class EuropaScrapper:
   # *
 
   def get_additive(self, id: str) -> dict:
-    logger = logging.getLogger('additives-scrapper')
-    logger.info(f'Fetching additive with id={id:04d}')
+    self.logger.info(f'Fetching additive with id={id:04d}')
 
     url = self.BASE_URL.format(id)
     page: BeautifulSoup = get_page(url)
@@ -120,28 +116,28 @@ class EuropaScrapper:
 
     # This element has no data or doesn't exist
     if main_content.find('div', { 'class': 'BlocA' }) is None:
-      logger.warning('    - No data for this item, it probably doesn\' exist')
+      self.logger.warning('    - No data for this item, it probably doesn\' exist')
       return None
 
     general_data = self.__parse_general(main_content)
     if general_data is None:
-      logger.warning('    - No general info for this item, must be a group')
+      self.logger.warning('    - No general info for this item, must be a group')
       return None
-    logger.debug('    - Got general info')
-    logger.debug('    ┌')
-    logger.debug(f'    │ number: {general_data["number"]}')
-    logger.debug(f'    │ name: {general_data["name"]}')
-    logger.debug(f'    │ synonyms: {general_data["synonyms"]}')
-    logger.debug(f'    │ groups: {general_data["groups"]}')
-    logger.debug('    └')
+    self.logger.debug('    - Got general info')
+    self.logger.debug('    ┌')
+    self.logger.debug(f'    │ number: {general_data["number"]}')
+    self.logger.debug(f'    │ name: {general_data["name"]}')
+    self.logger.debug(f'    │ synonyms: {general_data["synonyms"]}')
+    self.logger.debug(f'    │ groups: {general_data["groups"]}')
+    self.logger.debug('    └')
 
     authorisations = self.__parse_authorisations(main_content)
-    logger.debug('    - Got authorisations')
+    self.logger.debug('    - Got authorisations')
     for authorisation in authorisations:
-      logger.debug('    ┌')
-      logger.debug(f'    │ foods: {authorisation["foods"]}')
-      logger.debug(f'    │ exceptions: {authorisation["exceptions"]}')
-      logger.debug('    └')
+      self.logger.debug('    ┌')
+      self.logger.debug(f'    │ foods: {authorisation["foods"]}')
+      self.logger.debug(f'    │ exceptions: {authorisation["exceptions"]}')
+      self.logger.debug('    └')
 
     return {
       'id': id,
