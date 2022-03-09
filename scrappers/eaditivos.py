@@ -44,14 +44,24 @@ class EAditivosScrapper:
 
       vegetarian = 'unknown'
       vegan = 'unknown'
-      if e_source == 'vegetal':
+
+      # If it appears in the list it's always vegetarian
+      if e_id in vegetarian_ids:
         vegetarian = 'always'
-        vegan = 'always'
-      elif e_source == 'animal':
-        vegan = 'never'
+
+        # If source is vegetal it is also vegan
+        if e_source == 'vegetal':
+          vegan = 'always'
+        # If source is animal it is *not* vegan
+        elif e_source == 'animal':
+          vegan = 'never'
+        # If the origin is different we don't know
+        else:
+          pass
+      # If it doesn't appear in the list it will never be vegetarian or vegan
       else:
-        if e_id in vegetarian_ids:
-          vegetarian = 'always'
+        vegetarian = 'never'
+        vegan = 'never'
 
       self.logger.debug('    - Got info')
       self.logger.debug('    ┌')
