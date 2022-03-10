@@ -28,7 +28,7 @@ def setup_logger(name: str = 'additives-scrapper', level = None):
   handler.setLevel(level)
 
   # create formatter
-  formatter = logging.Formatter('[%(asctime)s] [%(levelname)7s] [%(name)20s] %(message)s')
+  formatter = logging.Formatter('[%(asctime)s] [%(levelname)7s] [%(name)25s] %(message)s')
 
   # add formatter to handler
   handler.setFormatter(formatter)
